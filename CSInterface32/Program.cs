@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,24 @@ namespace CSInterface32
 {
     internal class Program
     {
+        class Parent { }
+
+        class Child : Parent, IComparable<Child>, IDisposable
+        {
+            public int CompareTo(Child other)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void Dispose()
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         class TestClass : IBasic
         {
+
             public int TestProperty {
                 get { return -1; }
                 set { int n = value; } 
@@ -77,6 +94,12 @@ namespace CSInterface32
             IBasic ib2 = new TestClass();
             TestClass tc2 = (TestClass)ib2;
             TestClass tc3 = (TestClass)ib;
+
+            Child child = new Child();
+            Parent parent = child;
+            IDisposable childAsDisposable = new Child();
+            IComparable<Child> childAsComparable = new Child();
+
         }
     }
 }
