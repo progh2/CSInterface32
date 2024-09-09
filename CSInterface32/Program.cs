@@ -8,6 +8,19 @@ namespace CSInterface32
 {
     internal class Program
     {
+        class TestClass : IBasic
+        {
+            public int TestProperty {
+                get { return -1; }
+                set { int n = value; } 
+            }
+
+            public int TestInstanceMethod()
+            {
+                // do something
+                return -1;
+            }
+        }
 
         class Dummy : IDisposable
         {
@@ -57,6 +70,13 @@ namespace CSInterface32
                 Console.WriteLine("using 블록 안에 들어왔습니다.");
             }
             Console.WriteLine("using 블록을 벗어났습니다.");
+
+            // 다형성의 예 - 다양한 얼굴(역할)을 가졌다!
+            TestClass tc = new TestClass();
+            IBasic ib = tc;
+            IBasic ib2 = new TestClass();
+            TestClass tc2 = (TestClass)ib2;
+            TestClass tc3 = (TestClass)ib;
         }
     }
 }
